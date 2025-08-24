@@ -1,0 +1,25 @@
+"# Ambiente Virtual
+venv/
+
+# Arquivos de Cache do Python
+__pycache__/
+*.pyc
+
+# Arquivos de dados (não enviar para o GitHub)
+data/raw/
+data/processed/
+
+# Arquivos do Guias de Bolso
+Guias de Bolso/
+
+# Arquivos de sistema operacional
+.DS_Store" >> .gitignore
+
+# Ignorar arquivos temporários do jupyter
+.ipynb_checkpoints/
+
+# Ignorar todo o conteúdo da pasta de dados processados...
+data/processed/*
+
+# ...EXCETO o nosso arquivo de amostra!
+!data/processed/sample_data.parquet
