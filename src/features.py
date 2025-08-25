@@ -34,14 +34,9 @@ def compute_shipping_time(df: pd.DataFrame):
     purchase_col = 'order_purchase_timestamp'
     delivered_col = 'order_delivered_customer_date'
     
-    for col in [purchase_col, delivered_col]:
-        if col in df.columns:
-            df[col] = pd.to_datetime(df[col], errors='coerce')
-        else:
-            print(f"Aviso: Coluna '{col}' não encontrada. A feature 'shipping_time_days' não pode ser criada.")
-            return df # Retorna o df original se uma coluna chave faltar
-
+    
     df['shipping_time_days'] = (df[delivered_col] - df[purchase_col]).dt.days
+    df['shipping_time_days'] = df['shipping_time_days'].astype('Int64')
     return df
 
 
@@ -60,19 +55,13 @@ def compute_shipping_delay(df: pd.DataFrame):
     promised_col = 'order_estimated_delivery_date'
     delivered_col = 'order_delivered_customer_date'
 
-    for col in [promised_col, delivered_col]:
-        if col in df.columns:
-            df[col] = pd.to_datetime(df[col], errors='coerce')
-        else:
-            print(f"Warning: Column '{col}' not found. The 'shipping_delay_days' feature cannot be created.")
-            return df  # Return the original df if a key column is missing
+   
 
     df['shipping_delay_days'] = (df[delivered_col] - df[promised_col]).dt.days
 
     # If there wasnt a delay, we need to set the negative number in 'shipping_delay_days' to 0:
     df['shipping_delay_days'] = df['shipping_delay_days'].clip(lower=0)
-    df['shipping_delay_days'] = df['shipping_delay_days'].astype(int) 
-
+    df['shipping_delay_days'] = df['shipping_delay_days'].astype('Int64') 
     return df
 
  
@@ -90,41 +79,32 @@ def compute_delivery_total_time(df: pd.DataFrame):
     purchase_col = 'order_purchase_timestamp'
     delivered_col = 'order_delivered_customer_date'
 
-    if purchase_col in df.columns and delivered_col in df.columns:
-        df[purchase_col] = pd.to_datetime(df[purchase_col], errors='coerce')
-        df[delivered_col] = pd.to_datetime(df[delivered_col], errors='coerce')
-        df['total_delivery_time'] = (df[delivered_col] - df[purchase_col]).dt.days
-    else:
-        print(f"Warning: One of the columns '{purchase_col}' or '{delivered_col}' not found.")
-    return df
+    df['total_delivery_time'] = (df[delivered_col] - df[purchase_col]).dt.days
 
-
-
-def compute_shipping_delay(df: pd.DataFrame):
-
-    # Calculates the shipping delay in days between the shipping limit date and delivered dates.
-
-    # Args:
-    #     df (pd.DataFrame): DataFrame containing the order data.
-    #                        The date columns must already be in datetime format.
-
-    # Returns:
-    #     pd.DataFrame: DataFrame with the new 'shipping_delay_days' column.
-
-    limit_col = 'shipping_limit_date'
-    delivered_col = 'order_delivered_customer_date'
-
-    for col in [limit_col, delivered_col]:
-        if col in df.columns:
-            df[col] = pd.to_datetime(df[col], errors='coerce')
-        else:
-            print(f"Warning: Column '{col}' not found. The 'shipping_delay_days' feature cannot be created.")
-            return df  # Return the original df if a key column is missing
-
-    df['shipping_delay_days'] = (df[delivered_col] - df[limit_col]).dt.days
-
-    # If there wasnt a delay, we need to set the negative number in 'shipping_delay_days' to 0:
-    df['shipping_delay_days'] = df['shipping_delay_days'].clip(lower=0)
-    df['shipping_delay_days'] = df['shipping_delay_days'].astype(int)
+    df['total_delivery_time'] = df['total_delivery_time'].astype('Int64')
 
     return df
+
+
+
+# def compute_delay_vs_shippinglimit(df: pd.DataFrame):
+
+#     # Calculates the shipping delay in days between the shipping limit date and delivered dates.
+
+#     # Args:
+#     #     df (pd.DataFrame): DataFrame containing the order data.
+#     #                        The date columns must already be in datetime format.
+
+#     # Returns:
+#     #     pd.DataFrame: DataFrame with the new 'shipping_delay_days' column.
+
+#     limit_col = 'shipping_limit_date'
+#     delivered_col = 'order_delivered_customer_date'
+
+#     df['delaydays_vs_shippinglimit'] = (df[delivered_col] - df[limit_col]).dt.days
+
+#     # If there wasnt a delay, we need to set the negative number in 'delaydays_vs_shippinglimit' to 0:
+#     df['delaydays_vs_shippinglimit'] = df['delaydays_vs_shippinglimit'].clip(lower=0)
+#     df['delaydays_vs_shippinglimit'] = df['delaydays_vs_shippinglimit'].astype('Int64')
+
+#     return df

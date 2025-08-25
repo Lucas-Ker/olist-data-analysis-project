@@ -1,4 +1,4 @@
-# Análise de Dados do E-commerce Brasileiro (Olist)
+<!--# Análise de Dados do E-commerce Brasileiro (Olist)
 
 ![Status](https://img.shields.io/badge/Status-Concluído-brightgreen)
 
@@ -123,3 +123,5 @@ Siga as instruções abaixo para configurar e executar o projeto localmente.
 * **Lucas Ker Soares Dias**
 * **LinkedIn:** `https://www.linkedin.com/in/seu-perfil`
 * **GitHub:** `https://github.com/SEU-USUARIO`
+
+-->
