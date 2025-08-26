@@ -24,7 +24,7 @@ def plot_hist(series: pd.Series, title: str = "", xlabel: str = "", bins: int = 
     """
     plt.style.use('seaborn-v0_8-paper')
     plt.figure(figsize=(12, 6))
-    
+
     sns.histplot(series, bins=bins, linewidth=0.4, alpha=0.7, stat='percent', label=xlabel)
     plt.title(title, fontsize=12)
     plt.xlabel(xlabel, fontsize=12)
@@ -58,7 +58,7 @@ def plot_scatter(x: pd.Series, y: pd.Series, title: str = "", xlabel: str = "", 
     """
     plt.style.use('seaborn-v0_8-paper')
     plt.figure(figsize=(12, 6))
-    plt.scatter(x, y, c='red', s=100, edgecolors="k")
+    plt.scatter(x, y, c='red', s=25, edgecolors="k")
     plt.title(title, fontsize=12)
     plt.xlabel(xlabel, fontsize=12)
     plt.ylabel(ylabel, fontsize=12)
@@ -76,7 +76,7 @@ def plot_scatter(x: pd.Series, y: pd.Series, title: str = "", xlabel: str = "", 
     plt.show()
 
 
-def plot_bar(x: pd.Series, y: pd.Series, title: str = "", xlabel: str = "", ylabel: str = "", save_path: str = None, hue: str = None):
+def plot_bar(x: pd.Series, y: pd.Series, title: str = "", xlabel: str = "", ylabel: str = "", save_path: str = None, hue: str = None, orientation: str = None):
     """
     Plota e opcionalmente salva um gráfico de barras para duas séries de dados.
 
@@ -92,7 +92,7 @@ def plot_bar(x: pd.Series, y: pd.Series, title: str = "", xlabel: str = "", ylab
     plt.style.use('seaborn-v0_8-paper')
     plt.figure(figsize=(12, 6))
     colors = sns.color_palette("husl", len(x))
-    sns.barplot(x=x, y=y, palette=colors, hue=hue)
+    sns.barplot(x=x, y=y, palette=colors, hue=hue, orient=orientation)
     plt.title(title, fontsize=12)
     plt.xlabel(xlabel, fontsize=12)
     plt.ylabel(ylabel, fontsize=12)
@@ -129,7 +129,7 @@ def plot_heatmap(data: pd.DataFrame, title: str = "", xlabel: str = "", ylabel: 
     plt.xlabel(xlabel, fontsize=12)
     plt.ylabel(ylabel, fontsize=12)
     plt.tight_layout()
-    plt.grid(True, linestyle='--', alpha=0.6)
+    
 
     if save_path:
         # Garante que o diretório de outputs exista
@@ -405,3 +405,88 @@ def plot_stacked_bar(data: pd.DataFrame, title: str = "", xlabel: str = "", ylab
     plt.show()
 
 
+def plot_bubble(data: pd.DataFrame, x_col: str, y_col: str, size_col: str,title: str = "", xlabel: str = "", ylabel: str = "", top_n_labels: int = 10, save_path: str = None):
+    """
+    Plots a bubble chart, where bubble size indicates a third variable.
+
+    Args:
+        data (pd.DataFrame): DataFrame with aggregated data.
+        x_col (str): Column for the x-axis (e.g., 'average_score').
+        y_col (str): Column for the y-axis (e.g., 'total_revenue').
+        size_col (str): Column to determine bubble size (e.g., 'units_sold').
+        top_n_labels (int): Number of top bubbles (by size) to label.
+        
+    """
+    plt.style.use('seaborn-v0_8-paper')
+    plt.figure(figsize=(16, 8))
+
+    # Changes the bubble sizes 
+    sizes = data[size_col]
+
+    # Using Seaborn to create the bubble chart
+    scatter = sns.scatterplot(
+        data=data,
+        x=x_col,
+        y=y_col,
+        size=sizes,
+        sizes=(50, 2000),  # Defines the minimum and maximum bubble size
+        hue=x_col,         # Colors the bubbles by average rating
+        palette='rainbow', # Color palette (higher ratings = lighter colors)
+        alpha=0.7,
+        edgecolor='black',
+        linewidth=0.5
+    )
+
+    # Adds labels for the top N categories (by sales volume)
+    top_categories = data.nlargest(top_n_labels, size_col)
+    for i, row in top_categories.iterrows():
+        plt.text(row[x_col], row[y_col], i, # 'i' is the index (category name)
+                 horizontalalignment='center', size='small', color='black')
+
+    plt.title(title, fontsize=12)
+    plt.xlabel(xlabel, fontsize=12)
+    plt.ylabel(ylabel, fontsize=12)
+
+    # Formats the Y-axis to show monetary values more legibly
+    ax = plt.gca()
+    ax.get_yaxis().set_major_formatter(plt.FuncFormatter(lambda x, p: format(int(x), ',')))
+
+    # Move the legend outside
+    plt.legend(bbox_to_anchor=(1.02, 1), loc='upper left', borderaxespad=0)
+    plt.tight_layout(rect=[0, 0, 0.9, 1]) # Adjust layout to make room for legend
+
+    if save_path:
+        OUTPUTS_DIR.mkdir(parents=True, exist_ok=True)
+        full_path = OUTPUTS_DIR / save_path
+        plt.savefig(full_path, dpi=600)
+        print(f"Bubble plot saved at: {full_path}")
+
+    plt.show()
+
+
+
+def pie_plot(data: pd.Series, title: str = "", save_path: str = None):
+    """
+    Plots and optionally saves a pie chart for a Series.
+
+    Args:
+        data (pd.Series): The data series to plot.
+        title (str, optional): Title of the plot.
+        save_path (str, optional): Name of the file to save the figure (e.g., 'my_plot.png').
+                                   The figure will be saved in outputs/figures/.
+    """
+    plt.style.use('seaborn-v0_8-paper')
+    plt.figure(figsize=(6, 6))
+    colors = sns.color_palette("husl", len(data))
+    plt.pie(data, labels=data.index, autopct='%1.1f%%', startangle=140, colors=colors, textprops={'fontsize': 10})
+    plt.title(title, fontsize=12)
+    plt.tight_layout()
+    plt.legend(bbox_to_anchor=(1.02, 1), loc='upper right')
+
+    if save_path:
+        OUTPUTS_DIR.mkdir(parents=True, exist_ok=True)
+        full_path = OUTPUTS_DIR / save_path
+        plt.savefig(full_path, dpi=600)
+        print(f"Pie chart saved at: {full_path}")
+
+    plt.show()
