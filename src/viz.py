@@ -3,12 +3,14 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.lines as mlines
+import matplotlib.image as mpimg 
 import seaborn as sns
 from pathlib import Path
 
 # Define o caminho para salvar as figuras, usando a mesma lógica do data_utils
 PROJECT_ROOT = Path(__file__).parent.parent
 OUTPUTS_DIR = PROJECT_ROOT / "outputs" / "figures"
+figures_path = OUTPUTS_DIR / "figures"
 
 def plot_hist(series: pd.Series, title: str = "", xlabel: str = "", bins: int = 1000, save_path: str = None):
     """
@@ -489,4 +491,51 @@ def pie_plot(data: pd.Series, title: str = "", save_path: str = None):
         plt.savefig(full_path, dpi=600)
         print(f"Pie chart saved at: {full_path}")
 
+    plt.show()
+
+
+
+
+# Em src/viz.py, substitua a função antiga por esta:
+
+def display_image_grid(file_names: list, figures_path: Path, titles: list = None, cols: int = 3, figure_size=(20, 15)):
+    """
+    Exibe um grid de imagens salvas a partir de um caminho especificado.
+
+    Args:
+        file_names (list): Uma lista de nomes de arquivos de imagem.
+        figures_path (Path): O objeto Path para o diretório onde as figuras estão salvas.
+        titles (list, optional): Uma lista de títulos para cada imagem.
+        cols (int, optional): O número de colunas no grid.
+        figure_size (tuple, optional): O tamanho geral da figura.
+    """
+    if titles is None:
+        titles = [''] * len(file_names)
+
+    rows = (len(file_names) - 1) // cols + 1
+    fig, axes = plt.subplots(rows, cols, figsize=figure_size)
+    
+    if len(file_names) == 1:
+        axes = [axes]
+    
+    ax = axes.flatten()
+
+    for i, file_name in enumerate(file_names):
+        try:
+            # CORREÇÃO: Usa o caminho que foi passado diretamente para a função
+            img_path = figures_path / file_name
+            img = mpimg.imread(img_path)
+            ax[i].imshow(img)
+            ax[i].set_title(titles[i], fontsize=14)
+            ax[i].axis('off')
+        except FileNotFoundError:
+            ax[i].text(0.5, 0.5, f"Image not found:\n{file_name}", ha='center', va='center')
+            ax[i].axis('off')
+        except IndexError:
+            print(f"Warning: Not enough subplots for all images. Image '{file_name}' was skipped.")
+
+    for i in range(len(file_names), len(ax)):
+        ax[i].axis('off')
+
+    plt.tight_layout(pad=1.5)
     plt.show()
