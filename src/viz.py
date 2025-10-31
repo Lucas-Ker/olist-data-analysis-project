@@ -78,9 +78,9 @@ def plot_scatter(x: pd.Series, y: pd.Series, title: str = "", xlabel: str = "", 
     plt.show()
 
 
-def plot_bar(x: pd.Series, y: pd.Series, title: str = "", xlabel: str = "", ylabel: str = "", save_path: str = None, hue: str = None, orientation: str = None):
+def line_plot(x: pd.Series, y: pd.Series, title: str = "", xlabel: str = "", ylabel: str = "", save_path: str = None):
     """
-    Plota e opcionalmente salva um gráfico de barras para duas séries de dados.
+    Plots and optionally saves a line plot for two data series.
 
     Args:
         x (pd.Series): A série de dados para o eixo X.
@@ -89,6 +89,40 @@ def plot_bar(x: pd.Series, y: pd.Series, title: str = "", xlabel: str = "", ylab
         xlabel (str, optional): Rótulo do eixo X.
         ylabel (str, optional): Rótulo do eixo Y.
         save_path (str, optional): Nome do arquivo para salvar a figura (ex: 'meu_grafico.png').
+                                   A figura será salva em outputs/figures/.
+    """
+    plt.style.use('seaborn-v0_8-paper')
+    plt.figure(figsize=(12, 6))
+    sns.lineplot(x=x, y=y, marker='o')
+    plt.title(title, fontsize=12)
+    plt.xlabel(xlabel, fontsize=12)
+    plt.ylabel(ylabel, fontsize=12)
+    plt.tight_layout()
+    plt.grid(True, linestyle='--', alpha=0.6)
+
+    if save_path:
+        # Garante que o diretório de outputs exista
+        OUTPUTS_DIR.mkdir(parents=True, exist_ok=True)
+        full_path = OUTPUTS_DIR / save_path
+        plt.savefig(full_path, dpi=600)
+        print(f"Plot saved at: {full_path}")
+
+
+
+    plt.show()
+
+def plot_bar(x: pd.Series, y: pd.Series, title: str = "", xlabel: str = "", ylabel: str = "", save_path: str = None, hue: str = None, orientation: str = None):
+    """
+    Plota e opcionalmente salva um gráfico de barras para duas séries de dados.
+
+    Args:
+        x (pd.Series): The series of data for the X axis.
+        y (pd.Series): The series of data for the Y axis.
+        title (str, optional): Title of the plot.
+        xlabel (str, optional): X axis label.
+        ylabel (str, optional): Y axis label.
+        save_path (str, optional): Filename to save the figure (e.g., 'my_plot.png').
+                                   The figure will be saved in outputs/figures/.
                                    A figura será salva em outputs/figures/.
     """
     plt.style.use('seaborn-v0_8-paper')
@@ -324,7 +358,7 @@ def lm_plot(df: pd.DataFrame, x: str, y: str, hue: str = None, title: str = "", 
 
 
 
-def plot_box(df: pd.DataFrame, x: str, y: str, title: str = "", xlabel: str = "", ylabel: str = "", save_path: str = None, hue: str = None):
+def plot_box(df: pd.DataFrame, x: str, y: str, title: str = "", xlabel: str = "", ylabel: str = "", save_path: str = None, hue: str = None, ylim: tuple = None, xlim: tuple = None):
     """
     Plots and optionally saves a box plot for a DataFrame.
 
@@ -345,6 +379,12 @@ def plot_box(df: pd.DataFrame, x: str, y: str, title: str = "", xlabel: str = ""
     plt.xlabel(xlabel, fontsize=12)
     plt.ylabel(ylabel, fontsize=12)
     plt.grid(True, linestyle='--', alpha=0.6)
+
+    if ylim:
+        plt.ylim(ylim)
+
+    if xlim:
+        plt.xlim(xlim)
 
     if save_path:
         OUTPUTS_DIR.mkdir(parents=True, exist_ok=True)
@@ -496,18 +536,17 @@ def pie_plot(data: pd.Series, title: str = "", save_path: str = None):
 
 
 
-# Em src/viz.py, substitua a função antiga por esta:
 
 def display_image_grid(file_names: list, figures_path: Path, titles: list = None, cols: int = 3, figure_size=(20, 15)):
     """
-    Exibe um grid de imagens salvas a partir de um caminho especificado.
+    Displays a grid of saved images from a specified path.
 
     Args:
-        file_names (list): Uma lista de nomes de arquivos de imagem.
-        figures_path (Path): O objeto Path para o diretório onde as figuras estão salvas.
-        titles (list, optional): Uma lista de títulos para cada imagem.
-        cols (int, optional): O número de colunas no grid.
-        figure_size (tuple, optional): O tamanho geral da figura.
+        file_names (list): A list of image file names.
+        figures_path (Path): The Path object for the directory where the figures are saved.
+        titles (list, optional): A list of titles for each image.
+        cols (int, optional): The number of columns in the grid.
+        figure_size (tuple, optional): The overall size of the figure.
     """
     if titles is None:
         titles = [''] * len(file_names)
