@@ -145,5 +145,5 @@ While this project provides a complete strategic diagnosis, data analysis is an 
 ## ✍️ Author
 
 * **Lucas Ker Soares Dias**
-* **LinkedIn:** `https://www.linkedin.com/in/lucas-ker/`
-* **GitHub:** `https://github.com/Lucas-Ker`
+* **LinkedIn:** [`https://www.linkedin.com/in/lucas-ker/`](https://www.linkedin.com/in/lucas-ker/)
+* **GitHub:** [`https://github.com/Lucas-Ker`](https://github.com/Lucas-Ker)
