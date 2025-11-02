@@ -33,11 +33,17 @@ The analysis was guided by key business questions, and the main findings were:
 ## 🛠️ Tools & Stack
 
 **- Language:** Python
+
 **- Data Analysis:** Pandas
+
 **- Visualization:** Matplotlib, Seaborn
+
 **- Machine Learning:** Scikit-learn, Prophet (fbprophet), Imbalanced-learn (imblearn)
+
 **- Statistical Analysis:** Statsmodels
+
 **- Environment:** Jupyter Lab, Visual Studio Code
+
 **- Other:** Kaggle API, Git & GitHub
 
 ---
