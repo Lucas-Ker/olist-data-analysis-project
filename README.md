@@ -46,6 +46,8 @@ The analysis was guided by key business questions, and the main findings were:
 
 The project is organized modularly to ensure clarity and reproducibility:
 
+```
+
 ├── data/
 │   ├── raw/          <- Raw original data (downloaded via script)
 │   └── processed/    <- Cleaned and processed data
@@ -68,6 +70,9 @@ The project is organized modularly to ensure clarity and reproducibility:
 ├── README.md           <- This file
 ├── README.pt-br.md     <- Portuguese version of the README
 ├── requirements.txt    <- Project dependency list
+
+
+```
 
 ---
 ## 🚀 How to Run This Project
