@@ -90,7 +90,7 @@ Follow the instructions below to set up and run the project locally.
     git clone [https://github.com/Lucas-Ker/olist-data-analysis-project.git](https://github.com/Lucas-Ker/olist-data-analysis-project.git)
     cd olist-data-analysis-project
     ```
-    *(Nota: Ajustei o nome da pasta `projeto-olist-portfolio` para o nome real do seu repo `olist-data-analysis-project`)*
+    
 
 2.  **Create and activate the virtual environment:**
     ```bash
