@@ -13,6 +13,7 @@ This project is an end-to-end analysis of the Olist e-commerce ecosystem, coveri
 The objective is not just to explore the data, but to build a complete strategic diagnosis, identifying key operational bottlenecks (like logistics) and the greatest growth opportunities (like customer retention). The project culminates in the construction of a Machine Learning model that proactively identifies customers at risk of dissatisfaction.
 
 This portfolio demonstrates skills in Python, Pandas, Feature Engineering, Predictive Modeling (Scikit-learn, Prophet), and data storytelling.
+
 ---
 
 ## 🎯 Key Questions and Insights
@@ -26,6 +27,7 @@ The analysis was guided by key business questions, and the main findings were:
 **- Insight 3: It's Possible to Predict 68% of Bad Reviews.** We built a Random Forest model (notebook_04) that successfully predicts which orders will receive a 1 or 2-star rating. This model has a **Recall of 68%**, allowing Olist to shift from reactive to proactive customer service, saving dissatisfied customers before they even leave a review.
 
 **- Insight 4: Daily Sales Forecasting is Unreliable.** Our forecasting attempt (notebook_04) proved that high daily volatility and limited historical data (less than 2 years) make daily forecasting inaccurate. The Prophet model did not outperform a simple naive baseline (MAE of 24.37% vs 25.56%). The recommendation is to use **monthly forecasts** for strategic planning.
+
 ---
 
 ## 🛠️ Tools & Stack
