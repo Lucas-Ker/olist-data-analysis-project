@@ -1,127 +1,147 @@
-<!--# Análise de Dados do E-commerce Brasileiro (Olist)
+# Brazilian E-Commerce Data Analysis (Olist)
 
-![Status](https://img.shields.io/badge/Status-Concluído-brightgreen)
+![Status](https://img.shields.io/badge/Status-Completed-brightgreen)
 
-## 📄 Sobre o Projeto
-
-[cite_start]Este projeto consiste em uma Análise Exploratória de Dados (EDA) completa sobre um conjunto de dados público de e-commerce brasileiro da Olist[cite: 14]. [cite_start]O objetivo é extrair insights acionáveis sobre o comportamento dos clientes, performance de vendas e eficiência logística, demonstrando o processo de análise de dados do início ao fim[cite: 4, 5].
-
-[cite_start]Este é um projeto de portfólio que consolida habilidades em Python, Pandas, visualização de dados e storytelling[cite: 3, 9].
+**Leia este README em [Português (Brasil) 🇧🇷](README.pt-br.md).**
 
 ---
 
-## 🎯 Principais Perguntas e Insights
+## 📄 About The Project
 
-[cite_start]A análise foi guiada para responder a perguntas de negócio chave, e os principais achados foram[cite: 56]:
+This project is an end-to-end analysis of the Olist e-commerce ecosystem, covering everything from data cleaning and Exploratory Data Analysis (EDA) to predictive modeling and customer segmentation (RFM and K-Means).
 
-* **Insight 1:** (Ex: A grande maioria da receita (75%) concentra-se na região Sudeste, mas a região Nordeste apresenta o maior tempo médio de entrega, impactando negativamente a satisfação do cliente.)
-* **Insight 2:** (Ex: Existe uma forte sazonalidade nas vendas de categorias como 'cama_mesa_banho', com picos em maio e junho, sugerindo oportunidades para campanhas de marketing direcionadas.)
-* **Insight 3:** (Ex: Atrasos na entrega superiores a 7 dias estão diretamente correlacionados a uma queda drástica nas notas de avaliação (de 4.5 para 1.8, em média).)
+The objective is not just to explore the data, but to build a complete strategic diagnosis, identifying key operational bottlenecks (like logistics) and the greatest growth opportunities (like customer retention). The project culminates in the construction of a Machine Learning model that proactively identifies customers at risk of dissatisfaction.
 
-*(Esta seção será a última a ser preenchida, com os seus achados mais impactantes)*
+This portfolio demonstrates skills in Python, Pandas, Feature Engineering, Predictive Modeling (Scikit-learn, Prophet), and data storytelling.
+---
+
+## 🎯 Key Questions and Insights
+
+The analysis was guided by key business questions, and the main findings were:
+
+**- Insight 1: It's Not the Delay, It's the Broken Promise.** Statistical analysis (notebook_02) proved that total delivery time is not the primary driver of dissatisfaction. The #1 factor is the **delivery delay** (difference between the estimated and actual delivery dates). Customers are satisfied with a long delivery, as long as the promise is kept.
+
+**- Insight 2: 97.5% of Customers Buy Only Once.** RFM analysis and K-Means (notebook_03) revealed a "leaky bucket" business model. Olist is excellent at acquiring new customers but fails to retain them. The strategic challenge is not to increase the average ticket size, but to **foster the second purchase** and retain the "loyal elite" (2.5% of customers).
+
+**- Insight 3: It's Possible to Predict 68% of Bad Reviews.** We built a Random Forest model (notebook_04) that successfully predicts which orders will receive a 1 or 2-star rating. This model has a **Recall of 68%**, allowing Olist to shift from reactive to proactive customer service, saving dissatisfied customers before they even leave a review.
+
+**- Insight 4: Daily Sales Forecasting is Unreliable.** Our forecasting attempt (notebook_04) proved that high daily volatility and limited historical data (less than 2 years) make daily forecasting inaccurate. The Prophet model did not outperform a simple naive baseline (MAE of 24.37% vs 25.56%). The recommendation is to use **monthly forecasts** for strategic planning.
+---
+
+## 🛠️ Tools & Stack
+
+**- Language:** Python
+**- Data Analysis:** Pandas
+**- Visualization:** Matplotlib, Seaborn
+**- Machine Learning:** Scikit-learn, Prophet (fbprophet), Imbalanced-learn (imblearn)
+**- Statistical Analysis:** Statsmodels
+**- Environment:** Jupyter Lab, Visual Studio Code
+**- Other:** Kaggle API, Git & GitHub
 
 ---
 
-## 🛠️ Ferramentas Utilizadas
+## 📂 Repository Structure
 
-* **Linguagem:** `Python`
-* **Bibliotecas:** `Pandas`, `Matplotlib`, `Seaborn`, `Scikit-learn`, `Kaggle API`
-* **Ambiente:** `Jupyter Lab`, `Visual Studio Code`
-* **Controle de Versão:** `Git` & `GitHub`
-
----
-
-## 📂 Estrutura do Repositório
-
-O projeto está organizado de forma modular para garantir clareza e reprodutibilidade:
+The project is organized modularly to ensure clarity and reproducibility:
 
 ├── data/
-│   ├── raw/          <- Dados brutos originais (baixados via script)
-│   └── processed/    <- Dados limpos e amostra para análise
+│   ├── raw/          <- Raw original data (downloaded via script)
+│   └── processed/    <- Cleaned and processed data
 ├── notebooks/
-│   ├── 00_setup_and_load.ipynb       <- Carga, junção e salvamento inicial
-│   ├── 01_cleaning_feature_engineering.ipynb <- Limpeza e criação de features
-│   ├── 02_eda_kpis_visuals.ipynb     <- Análise Exploratória e KPIs
-│   ├── 03_customers_rfm_reviews.ipynb <- Análise de Clientes (RFM) e Reviews
-│   ├── 04_modeling_forecasting.ipynb <- Modelagem Preditiva (opcional)
-│   └── 05_final_report_for_recruiter.ipynb <- Relatório final narrativo
+│   ├── 00_setup_and_load.ipynb       <- Load, merge, and initial save
+│   ├── 01_cleaning_feature_engineering.ipynb <- Cleaning and feature engineering
+│   ├── 02_eda_kpis_statistical_tests.ipynb <- Exploratory Analysis, KPIs, and Statistical Tests
+│   ├── 03_customer_segmentation_rfm_kmeans.ipynb <- RFM Segmentation and Clustering
+│   ├── 04_forecasting_predictive_modeling.ipynb <- Forecasting and Classification Model
+│   └── 05_final_report_executive_summary.ipynb <- Final narrative report / executive summary
 ├── outputs/
-│   └── figures/      <- Gráficos e visualizações salvas
+│   └── figures/      <- Saved charts and visualizations
 ├── scripts/
-│   └── download_data.py <- Script para baixar os dados do Kaggle
+│   └── download_data.py <- Script to download data from Kaggle
 ├── src/
-│   ├── data_utils.py   <- Funções para carregar e salvar dados
-│   ├── features.py     <- Funções para engenharia de features
-│   └── viz.py          <- Funções para criar visualizações
+│   ├── data_utils.py   <- Functions for loading/saving data (optional)
+│   ├── features.py     <- Functions for feature engineering (optional)
+│   └── viz.py          <- Functions for creating visualizations (optional)
 ├── .gitignore
-├── README.md           <- Este arquivo
-├── requirements.txt    <- Lista de dependências do projeto
-└── run_all.sh          <- Script para gerar o relatório HTML final
+├── README.md           <- This file
+├── README.pt-br.md     <- Portuguese version of the README
+├── requirements.txt    <- Project dependency list
 
 ---
-## 🚀 Como Executar o Projeto
+## 🚀 How to Run This Project
 
-Siga as instruções abaixo para configurar e executar o projeto localmente.
+Follow the instructions below to set up and run the project locally.
 
-1.  **Clone o repositório:**
+1.  **Clone the repository:**
     ```bash
-    git clone [https://github.com/SEU-USUARIO/projeto-olist-portfolio.git](https://github.com/SEU-USUARIO/projeto-olist-portfolio.git)
-    cd projeto-olist-portfolio
+    git clone [https://github.com/Lucas-Ker/olist-data-analysis-project.git](https://github.com/Lucas-Ker/olist-data-analysis-project.git)
+    cd olist-data-analysis-project
     ```
+    *(Nota: Ajustei o nome da pasta `projeto-olist-portfolio` para o nome real do seu repo `olist-data-analysis-project`)*
 
-2.  **Crie e ative o ambiente virtual:**
+2.  **Create and activate the virtual environment:**
     ```bash
     python3 -m venv venv
     source venv/bin/activate
     ```
 
-3.  **Instale as dependências:**
+3.  **Install the dependencies:**
     ```bash
     pip install -r requirements.txt
     ```
 
-4.  **Obtenha os Dados**
+4.  **Get the Data**
 
-    Você precisa dos arquivos de dados brutos na pasta `data/raw`. Escolha uma das opções abaixo.
+    You need the raw data files in the `data/raw` folder. Choose one of the options below.
 
     <details>
-    <summary><strong>Opção 1: Via Script (Recomendado)</strong></summary>
+    <summary><strong>Option 1: Via Script (Recommended)</strong></summary>
 
-    Este método usa a API do Kaggle para baixar e descompactar os dados automaticamente.
+    This method uses the Kaggle API to download and unzip the data automatically.
 
-    * **a.** Faça o download do seu token `kaggle.json` na seção 'API' da sua conta no Kaggle.
-    * **b.** Crie uma pasta `.kaggle` no seu diretório home (`mkdir -p ~/.kaggle`).
-    * **c.** Mova o arquivo para essa pasta (`mv ~/Downloads/kaggle.json ~/.kaggle/`) e ajuste as permissões (`chmod 600 ~/.kaggle/kaggle.json`).
-    * **d.** Execute o script de download:
+    * **a.** Download your `kaggle.json` API token from the 'API' section of your Kaggle account.
+    * **b.** Create a `.kaggle` folder in your home directory (`mkdir -p ~/.kaggle`).
+    * **c.** Move the file to that folder (`mv ~/Downloads/kaggle.json ~/.kaggle/`) and set permissions (`chmod 600 ~/.kaggle/kaggle.json`).
+    * **d.** Run the download script:
         ```bash
         python scripts/download_data.py
         ```
     </details>
 
     <details>
-    <summary><strong>Opção 2: Download Manual (Alternativa)</strong></summary>
+    <summary><strong>Option 2: Manual Download (Alternative)</strong></summary>
 
-    Se preferir não usar a API, você pode baixar os dados manualmente.
+    If you prefer not to use the API, you can download the data manually.
 
-    * **a.** Vá para a página do dataset no Kaggle: [Brazilian E-Commerce Public Dataset by Olist](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce).
-    * **b.** Clique no botão "Download" para baixar o arquivo `brazilian-ecommerce.zip`.
-    * **c.** Descompacte o arquivo.
-    * **d.** Copie todos os arquivos `.csv` para a pasta `data/raw/` deste projeto.
+    * **a.** Go to the dataset page on Kaggle: [Brazilian E-Commerce Public Dataset by Olist](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce).
+    * **b.** Click the "Download" button to get the `brazilian-ecommerce.zip` file.
+    * **c.** Unzip the file.
+    * **d.** Copy all `.csv` files into the `data/raw/` folder of this project.
     </details>
 
-5.  **Execute os notebooks Jupyter:**
-    * Inicie o Jupyter Lab:
+5.  **Run the Jupyter notebooks:**
+    * Start Jupyter Lab:
         ```bash
         jupyter lab
         ```
-    * Abra e execute os notebooks na ordem numérica, começando por `notebooks/00_setup_and_load.ipynb`. O projeto pode ser avaliado rapidamente usando apenas o arquivo de amostra, mas para rodar a análise completa, os dados brutos são necessários.
+    * Open and run the notebooks in numerical order, starting with `notebooks/00_setup_and_load.ipynb`.
 
 ---
 
-## ✍️ Autor
+## 📈 Next Steps and Future Improvements
+
+While this project provides a complete strategic diagnosis, data analysis is an iterative process. The following steps could add even more value to the business:
+
+1.  **Text Analysis (NLP) of Bad Reviews:**
+    While our model predicts *which* customers will be dissatisfied, it doesn't explain *why* (beyond logistics). The next step would be to use Natural Language Processing (NLP) on the comments of 1 and 2-star reviews to identify product-related root causes (e.g., "broken product," "wrong color," "misleading description").
+
+2.  **Implementation of Monthly Sales Forecasting:**
+    We proved that daily forecasting is unfeasible. A valuable next step would be to aggregate the data at a **monthly** level and train a new Prophet model. A reliable monthly forecast would smooth out daily noise and provide real strategic value for inventory and financial planning.
+
+---
+
+## ✍️ Author
 
 * **Lucas Ker Soares Dias**
-* **LinkedIn:** `https://www.linkedin.com/in/seu-perfil`
-* **GitHub:** `https://github.com/SEU-USUARIO`
-
--->
+* **LinkedIn:** `https://www.linkedin.com/in/lucas-ker/`
+* **GitHub:** `https://github.com/Lucas-Ker`
