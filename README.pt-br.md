@@ -11,6 +11,7 @@ Este projeto é uma análise de ponta a ponta do ecossistema de e-commerce da Ol
 O objetivo não é apenas explorar os dados, mas construir um diagnóstico estratégico completo, identificando os principais gargalos operacionais (como logística) e as maiores oportunidades de crescimento (como retenção de clientes). O projeto culmina na construção de um modelo de Machine Learning que identifica proativamente clientes em risco de insatisfação.
 
 Este portfólio demonstra habilidades em Python, Pandas, Engenharia de Features, Modelagem Preditiva (Scikit-learn, Prophet) e storytelling de dados.
+
 ---
 
 ## 🎯 Principais Perguntas e Insights
@@ -24,6 +25,7 @@ A análise foi guiada para responder a perguntas de negócio chave, e os princip
 **- Insight 3:** **É possível prever 68% das avaliações ruins**. Construímos um modelo de Random Forest (notebook_04) que prevê com sucesso quais pedidos receberão uma nota 1 ou 2. Este modelo tem um Recall de 68%, permitindo que a Olist mude de um atendimento reativo para um atendimento ao cliente proativo, salvando clientes insatisfeitos antes que eles deixem a avaliação.
 
 **- Insight 4:** **Previsão diária de vendas não é confiável**. Nossa tentativa de forecasting (notebook_04) provou que a alta volatilidade diária e os dados históricos limitados (menos de 2 anos) tornam a previsão diária imprecisa. O modelo Prophet não superou um baseline ingênuo (MAE de 24.37% vs 25.56%). A recomendação é usar previsões mensais para planejamento estratégico.
+
 ---
 
 ## 🛠️ Ferramentas Utilizadas
@@ -48,27 +50,31 @@ A análise foi guiada para responder a perguntas de negócio chave, e os princip
 
 O projeto está organizado de forma modular para garantir clareza e reprodutibilidade:
 
+```
+
 ├── data/
 │   ├── raw/          <- Dados brutos originais (baixados via script)
 │   └── processed/    <- Dados limpos e processados
 ├── notebooks/
-│   ├── 00_setup_and_load.ipynb       <- Carga, junção e salvamento inicial
+│   ├── 00_setup_and_load.ipynb             <- Carga, junção e salvamento inicial
 │   ├── 01_cleaning_feature_engineering.ipynb <- Limpeza e engenharia de features
 │   ├── 02_eda_kpis_statistical_tests.ipynb <- Análise Exploratória, KPIs e Testes Estatísticos
 │   ├── 03_customer_segmentation_rfm_kmeans.ipynb <- Segmentação RFM e Clusterização
-│   ├── 04_modeling_forecasting.ipynb <- Forecasting e Modelo de Classificação
+│   ├── 04_modeling_forecasting.ipynb       <- Forecasting e Modelo de Classificação
 │   └── 05_final_report_executive_summary.ipynb <- Relatório final narrativo
 ├── outputs/
 │   └── figures/      <- Gráficos e visualizações salvas
 ├── scripts/
 │   └── download_data.py <- Script para baixar os dados do Kaggle
 ├── src/
-│   ├── data_utils.py   <- Funções para carregar e salvar dados (opcional)
-│   ├── features.py     <- Funções para engenharia de features (opcional)
-│   └── viz.py          <- Funções para criar visualizações (opcional)
+│   ├── data_utils.py <- Funções para carregar e salvar dados (opcional)
+│   ├── features.py   <- Funções para engenharia de features (opcional)
+│   └── viz.py        <- Funções para criar visualizações (opcional)
 ├── .gitignore
-├── README.md           <- Este arquivo
-├── requirements.txt    <- Lista de dependências do projeto
+├── README.md         <- Este arquivo
+└── requirements.txt  <- Lista de dependências do projeto
+
+```
 
 ---
 ## 🚀 Como Executar o Projeto
@@ -146,6 +152,6 @@ Embora este projeto forneça um diagnóstico estratégico completo, a análise d
 ## ✍️ Autor
 
 * **Lucas Ker Soares Dias**
-* **LinkedIn:** `https://www.linkedin.com/in/lucas-ker/`
-* **GitHub:** `https://github.com/Lucas-Ker`
+* **LinkedIn:** [`https://www.linkedin.com/in/lucas-ker/`](https://www.linkedin.com/in/lucas-ker/)
+* **GitHub:** [`https://github.com/Lucas-Ker`](https://github.com/Lucas-Ker)
 
